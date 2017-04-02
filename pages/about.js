@@ -1,27 +1,26 @@
 import React from 'react'
-import css from 'next/css'
+import styled from 'styled-components'
 
 import defaultPage from '../hocs/defaultPage'
 
-const styles = {
-  heading: css({
-    fontSize: 40,
-    fontWeight: 200,
-    lineHeight: '40px'
-  }),
-  content: css({
-    fontSize: 20,
-    fontWeight: 200,
-    lineHeight: '30px'
-  })
-}
+const Heading = styled.h1`
+  font-size: 40px;
+  font-weight: 200;
+  line-height: 40px;
+`
+
+const Content = styled.p`
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 30px;
+`
 
 const About = () => (
   <div>
-    <h1 className={styles.heading}>Nothing to see here.</h1>
-    <p className={styles.content}>
+    <Heading >Nothing to see here.</Heading>
+    <Content>
       This is just a random page.
-    </p>
+    </Content>
   </div>
 )
 

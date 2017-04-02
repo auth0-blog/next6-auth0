@@ -1,29 +1,29 @@
 import React, { PropTypes } from 'react'
 import Link from 'next/link'
-import css from 'next/css'
+import styled from 'styled-components'
 
-const styles = {
-  header: css({
-    display: 'flex',
-    marginBottom: 20
-  }),
-  link: isActive => css({
-    marginRight: 20,
-    fontSize: 14,
-    color: isActive ? '#333' : '#999',
-    textDecoration: 'none',
-    textTransform: 'uppercase',
-    paddingTop: 2,
-    paddingBottom: 2,
-    borderTop: `1px solid ${isActive ? '#333' : 'transparent'}`,
-    borderBottom: `1px solid ${isActive ? '#333' : 'transparent'}`,
-    transition: 'color .25s',
-    fontWeight: isActive ? '600' : '400',
-    ':hover': {
-      color: '#333'
-    }
-  })
-}
+const AppHeader = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+`
+
+const HeaderLink = styled.a`
+  margin-right: 20px;
+  font-size: 14px;
+  color: ${p => p.isActive ? '#333' : '#999'};
+  text-decoration: none;
+  text-transform: uppercase;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-top: 1px solid ${p => p.isActive ? '#333' : 'transparent'};
+  border-bottom: 1px solid ${p => p.isActive ? '#333' : 'transparent'};
+  transition: color .25s;
+  font-weight: isActive ? '600' : '400';
+  
+  &:hover {
+    color: #333;
+  }
+`
 
 const links = [
   { href: '/', text: 'Home' },
@@ -33,19 +33,20 @@ const links = [
   { href: '/auth/sign-off', text: 'Sign Off', authRequired: true }
 ]
 
-const getAllowedLinks = isAuthenticated => links.filter(l => !l.authRequired || (l.authRequired && isAuthenticated))
-                                                .filter(l => !isAuthenticated || (isAuthenticated && !l.anonymousOnly))
+const getAllowedLinks = isAuthenticated => links
+  .filter(l => !l.authRequired || (l.authRequired && isAuthenticated))
+  .filter(l => !isAuthenticated || (isAuthenticated && !l.anonymousOnly))
 
 const Header = ({ isAuthenticated, currentUrl }) => (
-  <div className={styles.header}>
+  <AppHeader>
     {getAllowedLinks(isAuthenticated).map(l => (
-      <Link key={l.href} href={l.href}>
-        <a className={styles.link(currentUrl === l.href)}>
+      <Link prefetch key={l.href} href={l.href}>
+        <HeaderLink isActive={currentUrl === l.href}>
           {l.text}
-        </a>
+        </HeaderLink>
       </Link>
     ))}
-  </div>
+  </AppHeader>
 )
 
 Header.propTypes = {

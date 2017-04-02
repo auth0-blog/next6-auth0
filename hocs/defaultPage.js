@@ -1,25 +1,25 @@
 import React from 'react'
 import Head from 'next/head'
-import css from 'next/css'
+import Router from 'next/router'
+import styled, { styleSheet } from 'styled-components';
 
 import ForkThis from '../components/ForkThis'
 import Header from '../components/Header'
 import { getUserFromCookie, getUserFromLocalStorage } from '../utils/auth'
 
-const styles = {
-  app: css({
-    height: '100vh',
-    width: '100vw'
-  }),
-  main: css({
-    maxWidth: 1024,
-    margin: '0 auto',
-    padding: 30
-  })
-}
+const App = styled.div`
+  height: 100vh;
+  width: 100vw;
+`
+
+const Main = styled.div`
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 30px;
+`
 
 export default Page => class DefaultPage extends React.Component {
-  static getInitialProps (ctx) {
+  static getInitialProps(ctx) {
     const loggedUser = process.browser ? getUserFromLocalStorage() : getUserFromCookie(ctx.req)
     const pageProps = Page.getInitialProps && Page.getInitialProps(ctx)
     return {
@@ -30,27 +30,27 @@ export default Page => class DefaultPage extends React.Component {
     }
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.logout = this.logout.bind(this)
   }
 
-  logout (eve) {
+  logout(eve) {
     if (eve.key === 'logout') {
-      this.props.url.pushTo(`/?logout=${eve.newValue}`)
+      Router.push(`/?logout=${eve.newValue}`)
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     window.addEventListener('storage', this.logout, false)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.removeEventListener('storage', this.logout, false)
   }
 
-  render () {
+  render() {
     const cssFiles = [
       'https://unpkg.com/normalize.css@5.0.0/normalize.css'
     ]
@@ -60,20 +60,30 @@ export default Page => class DefaultPage extends React.Component {
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           {cssFiles.map((c, i) => <link key={i} href={c} rel='stylesheet' />)}
           <style>
-            {`* {
+            {`
+            * {
               margin: 0;
               font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-            }`}
+            }
+            a {
+              cursor: pointer;
+            }
+            `}
           </style>
+          {!process.browser && (
+            <style>
+              {styleSheet.getCSS()}
+            </style>
+          )}
           <title>Next.js + auth0</title>
         </Head>
         <ForkThis />
-        <div className={styles.app}>
-          <div className={styles.main}>
+        <App>
+          <Main>
             <Header {...this.props} />
             <Page {...this.props} />
-          </div>
-        </div>
+          </Main>
+        </App>
       </div>
     )
   }

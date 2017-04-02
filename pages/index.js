@@ -1,83 +1,82 @@
 import React, { PropTypes } from 'react'
 import Link from 'next/link'
-import css from 'next/css'
+import styled from 'styled-components'
 
 import defaultPage from '../hocs/defaultPage'
 
-const styles = {
-  secretDiv: css({
-    backgroundColor: '#ecf0f1',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-    borderRadius: 2,
-    padding: 10,
-    minHeight: 100,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#333',
-    textAlign: 'center',
-    fontSize: 40,
-    fontWeight: '100',
-    marginBottom: 30
-  }),
-  main: css({
-    maxWidth: 750,
-    margin: '0 auto',
-    textAlign: 'center'
-  }),
-  heading: css({
-    fontSize: 40,
-    fontWeight: 200,
-    lineHeight: '40px'
-  }),
-  content: css({
-    fontSize: 20,
-    fontWeight: 200,
-    lineHeight: '30px'
-  }),
-  link: css({
-    color: '#333',
-    paddingBottom: 2,
-    borderBottom: '1px solid #ccc',
-    textDecoration: 'none',
-    fontWeight: 400,
-    lineHeight: '30px',
-    transition: 'border-bottom .2s',
-    ':hover': {
-      borderBottomColor: '#333'
-    }
-  })
-}
+const SecretContent = styled.div`
+  background-color: #ecf0f1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border-radius: 2px;
+  padding: 10px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 100;
+  margin-bottom: 30px;
+`
+
+const Main = styled.div`
+  max-width: 750px;
+  margin: 0 auto;
+  text-align: center
+`
+const Heading = styled.h1`
+  font-size: 40px;
+  font-weight: 200;
+  line-height: 40px
+`
+const Content = styled.p`
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 30px
+`
+const ContentLink = styled.a`
+  color: #333;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #ccc;
+  text-decoration: none;
+  font-weight: 400;
+  line-height: 30px;
+  transition: border-bottom .2s;
+  &:hover {
+    border-bottomColor: #333;
+  }
+`
 
 const SuperSecretDiv = () => (
-  <div className={styles.secretDiv}>
+  <SecretContent>
     This is a super secret div.
-  </div>
+  </SecretContent>
 )
 
 const createLink = (href, text) => (
-  <a href={href} className={styles.link}>{text}</a>
+  <ContentLink href={href}>{text}</ContentLink>
 )
 
 const Index = ({ isAuthenticated }) => (
   <div>
     {isAuthenticated && <SuperSecretDiv />}
-    <div className={styles.main}>
-      <h1 className={styles.heading}>Hello, friend!</h1>
-      <p className={styles.content}>
+    <Main>
+      <Heading>Hello, friend!</Heading>
+      <Content>
         This is a super simple example of how to use {createLink('https://github.com/zeit/next.js', 'next.js')} and {createLink('https://auth0.com/', 'Auth0')} together.
-      </p>
+      </Content>
       {!isAuthenticated && (
-        <p className={styles.content}>
+        <Content>
           You're not authenticated yet. Maybe you want to <Link href='/auth/sign-in'>{createLink('/auth/sign-in', 'sign in')}</Link> and see what happens?
-        </p>
+        </Content>
       )}
       {isAuthenticated && (
-        <p className={styles.content}>
+        <Content>
           Now that you're authenticated, maybe you should try going to our <Link href='/secret'>{createLink('/secret', 'super secret page')}</Link>!
-        </p>
+        </Content>
       )}
-    </div>
+    </Main>
   </div>
 )
 

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Router from 'next/router'
 
 import { setToken, checkSecret, extractInfoFromHash } from '../../utils/auth'
 
@@ -13,7 +14,7 @@ export default class SignedIn extends React.Component {
       console.error('Something happened with the Sign In request')
     }
     setToken(token)
-    this.props.url.pushTo('/')
+    Router.push('/')
   }
   render () {
     return null

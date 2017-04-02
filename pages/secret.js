@@ -1,21 +1,19 @@
 import React, { PropTypes } from 'react'
-import css from 'next/css'
+import styled from 'styled-components'
 
 import securePage from '../hocs/securePage'
 
-const styles = {
-  content: css({
-    fontSize: 20,
-    fontWeight: 200,
-    lineHeight: '30px'
-  })
-}
+const Content = styled.p`
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 30px;
+`
 
 const Secret = ({ loggedUser }) => (
   <div>
-    <p className={styles.content}>
-      Hi {loggedUser.email}. This is a super secure page! Try loading this page again using the incognito/private mode of your browser.
-    </p>
+    <Content>
+      Hi <strong>{loggedUser.email}</strong>. This is a super secure page! Try loading this page again using the incognito/private mode of your browser.
+    </Content>
   </div>
 )
 

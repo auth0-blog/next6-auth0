@@ -1,0 +1,7 @@
+{
+  "name": "nextjs-auth0",
+  "alias": "nextjs-auth0.now.sh",
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
