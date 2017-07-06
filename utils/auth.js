@@ -21,8 +21,7 @@ export const setToken = (token) => {
   if (!process.browser) {
     return
   }
-  window.localStorage.setItem('token', token)
-  window.localStorage.setItem('user', JSON.stringify(jwtDecode(token)))
+  Cookie.set('user', jwtDecode(token))
   Cookie.set('jwt', token)
 }
 
@@ -30,15 +29,15 @@ export const unsetToken = () => {
   if (!process.browser) {
     return
   }
-  window.localStorage.removeItem('token')
-  window.localStorage.removeItem('user')
-  window.localStorage.removeItem('secret')
   Cookie.remove('jwt')
+  Cookie.remove('user')
+  Cookie.remove('secret')
 
+  // to support logging out from all windows
   window.localStorage.setItem('logout', Date.now())
 }
 
-export const getUserFromCookie = (req) => {
+export const getUserFromServerCookie = (req) => {
   if (!req.headers.cookie) {
     return undefined
   }
@@ -50,11 +49,10 @@ export const getUserFromCookie = (req) => {
   return jwtDecode(jwt)
 }
 
-export const getUserFromLocalStorage = () => {
-  const json = window.localStorage.user
-  return json ? JSON.parse(json) : undefined
+export const getUserFromLocalCookie = () => {
+  return Cookie.getJSON('user')
 }
 
-export const setSecret = (secret) => window.localStorage.setItem('secret', secret)
+export const setSecret = (secret) => Cookie.set('secret', secret)
 
-export const checkSecret = (secret) => window.localStorage.secret === secret
+export const checkSecret = (secret) => Cookie.get('secret') === secret
