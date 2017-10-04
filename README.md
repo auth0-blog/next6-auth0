@@ -14,8 +14,8 @@ You can access a simple demo here: https://nextjs-auth0.now.sh
 ## Running Locally
 
 ```
-git clone https://github.com/luisrudge/next.js-auth0.git
-cd next.js-auth0
+git clone https://github.com/auth0-blog/next3-auth0.git
+cd next3-auth0
 yarn
 yarn dev
 ```
