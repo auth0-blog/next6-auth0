@@ -1,16 +1,14 @@
 import React from 'react'
 
 import defaultPage from '../../hocs/defaultPage'
-import { show } from '../../utils/lock'
-
-const CONTAINER_ID = 'put-lock-here'
+import { authorize } from '../../utils/auth0'
 
 class SignIn extends React.Component {
   componentDidMount () {
-    show(CONTAINER_ID)
+    authorize()
   }
   render () {
-    return <div id={CONTAINER_ID} />
+    return null
   }
 }
 
