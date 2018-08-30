@@ -1,5 +1,6 @@
 # next.js-auth0
-a simple example that shows how to use next.js with auth0
+
+A simple example that shows how to use Next.js with auth0
 
 You can access a simple demo here: https://nextjs-auth0.now.sh
 
@@ -14,8 +15,8 @@ You can access a simple demo here: https://nextjs-auth0.now.sh
 ## Running Locally
 
 ```
-git clone https://github.com/auth0-blog/next3-auth0.git
-cd next3-auth0
+git clone https://github.com/auth0-blog/next6-auth0.git
+cd next6-auth0
 yarn
 yarn dev
 ```
