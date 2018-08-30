@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Link from 'next/link'
 import styled from 'styled-components'
 
@@ -19,7 +20,7 @@ const HeaderLink = styled.a`
   border-bottom: 1px solid ${p => p.isActive ? '#333' : 'transparent'};
   transition: color .25s;
   font-weight: isActive ? '600' : '400';
-  
+
   &:hover {
     color: #333;
   }

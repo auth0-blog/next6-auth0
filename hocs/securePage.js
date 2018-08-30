@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 import NotAuthorized from '../components/NotAuthorized'
 import defaultPage from './defaultPage'

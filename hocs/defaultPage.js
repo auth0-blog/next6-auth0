@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
-import styled, { styleSheet } from 'styled-components';
+import styled from 'styled-components';
 
 import ForkThis from '../components/ForkThis'
 import Header from '../components/Header'
@@ -70,11 +70,6 @@ export default Page => class DefaultPage extends React.Component {
             }
             `}
           </style>
-          {!process.browser && (
-            <style>
-              {styleSheet.getCSS()}
-            </style>
-          )}
           <title>Next.js + auth0</title>
         </Head>
         <ForkThis />
